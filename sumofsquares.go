@@ -24,18 +24,21 @@ func sumInputs(depth int) int {
 	if depth <= 0 {
 		return 0
 	}
+
 	// grab input
 	var input int
 	fmt.Scanf("%d", &input)
 
 	// except negatives and check range
 	if input < -100 || input > 100 {
-		fmt.Println("Value to sum outside bounds.")
+		fmt.Println("Value to sum outside bounds.  Must be Between -100 and 100 inclusive.")
 		os.Exit(1)
 	}
+
 	if input < 0 {
 		input = 0
 	}
+
 	// recurse and sum square
 	return sumInputs(depth-1) + (input * input)
 }
@@ -45,19 +48,27 @@ func sumHandler(depth int) {
 	if depth <= 0 {
 		return
 	}
+
 	// read length of number string
 	var numberDepth, finalSum int
 	fmt.Scanf("%d", &numberDepth)
+
+	// throw away newline and extraneous input
 	fmt.Scanln()
+
 	// validate number
 	if numberDepth > 0 && numberDepth <= 100 {
 		// call recursive summing function
 		finalSum = sumInputs(numberDepth)
 		fmt.Scanln()
+	} else {
+		fmt.Println("Invalid number of integers.  Must be between 1 and 100 inclusive.")
+		os.Exit(1)
 	}
 
 	// Output sum of squares
 	fmt.Printf("%d%c", finalSum, '\n')
+
 	// recurse
 	sumHandler(depth - 1)
 }
@@ -66,13 +77,16 @@ func main() {
 	// Read in number of inputs
 	var depth int
 	fmt.Scanf("%d", &depth)
+
+	// throw away newline and extraneous input
 	fmt.Scanln()
+
 	// validate number
 	if depth <= 100 && depth >= 1 {
 		//Call recursive sum handler, which will sum inputs
 		sumHandler(depth)
 	} else {
-		fmt.Println("Number of entries is an invalid number.")
+		fmt.Println("Number of entries is an invalid number. Must be between 1 and 100 inclusive.")
 		return
 	}
 }
